@@ -1,5 +1,7 @@
 
+
 import json
+import csv
 from urllib.request import urlopen
 from urllib.parse import urlencode
 
@@ -34,12 +36,28 @@ with urlopen(url, timeout=15) as respuesta:
 fechas = datos["daily"]["time"]
 temperaturas = datos["daily"]["temperature_2m_max"]
 
-# Muestra los datos y el consumo de cada día
-for fecha, temperatura in zip(fechas, temperaturas):
-    consumo = calcular_consumo(temperatura)
-    consumo = round(consumo, 2)  # Redondea el consumo a 2 decimales
 
-    print("Día:", fecha)
-    print("Temperatura máxima:", temperatura, "°C")
-    print("Consumo de refrigeración:", consumo, "kWh")
-    print("-----------------------------")
+# Abre el CSV para escribir los resultados
+with open("prueba4/datos_refrigeracion.csv", "w", newline="", encoding="utf-8") as archivo:
+    escritor = csv.writer(archivo)
+
+    # Escribe los nombres de las columnas
+    escritor.writerow([
+        "Día",
+        "Temperatura máxima (°C)",
+        "Consumo de refrigeración (kWh)"
+    ])
+
+    # Calcula y guarda los datos de cada día
+    for fecha, temperatura in zip(fechas, temperaturas):
+        consumo = round(calcular_consumo(temperatura), 2)
+
+        escritor.writerow([fecha, temperatura, consumo])
+
+        # Muestra los resultados en la terminal
+        print("Día:", fecha)
+        print("Temperatura máxima:", temperatura, "°C")
+        print("Consumo de refrigeración:", consumo, "kWh")
+        print("-----------------------------")
+
+print("Archivo CSV creado correctamente.")
