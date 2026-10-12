@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de iluminación</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 30px;
+            color: #222;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .grafico {
+            width: 100%;
+            height: 350px;
+            background-color: white;
+            margin: 25px auto;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Dashboard de iluminación</h1>
+
+    <div id="graficoNubosidad" class="grafico"></div>
+    <div id="graficoIluminacion" class="grafico"></div>
+
+    <script>
+        
+const fechas = ["2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18"];
+const nubosidades = [17.0, 7.0, 26.0, 26.0, 36.0, 99.0, 97.0];
+const usos = [0.0, 0.0, 0.0, 0.0, 0.0, 24.5, 23.5];
+
+// Configura el gráfico de nubosidad
+const graficoNubosidad = echarts.init(document.getElementById("graficoNubosidad"));
+
+graficoNubosidad.setOption({
+    title: {
+        text: "Nubosidad media diaria"
+    },
+    tooltip: {
+        trigger: "axis"
+    },
+    xAxis: {
+        type: "category",
+        data: fechas,
+        name: "Día"
+    },
+    yAxis: {
+        type: "value",
+        name: "Nubosidad (%)",
+        min: 0,
+        max: 100
+    },
+    series: [{
+        name: "Nubosidad",
+        type: "line",
+        data: nubosidades,
+        smooth: true
+    }]
+});
+
+// Configura el gráfico de uso de iluminación
+const graficoIluminacion = echarts.init(document.getElementById("graficoIluminacion"));
+
+graficoIluminacion.setOption({
+    title: {
+        text: "Uso estimado de iluminación"
+    },
+    tooltip: {
+        trigger: "axis"
+    },
+    xAxis: {
+        type: "category",
+        data: fechas,
+        name: "Día"
+    },
+    yAxis: {
+        type: "value",
+        name: "Consumo (kWh)",
+        min: 0
+    },
+    series: [{
+        name: "Iluminación",
+        type: "bar",
+        data: usos
+    }]
+});
+
+    </script>
+
+</body>
+
+</html>
