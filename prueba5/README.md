@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Prueba 5 - Iluminación y dashboard
 
 Proyecto de prácticas de DAM que consulta la previsión meteorológica de Open-Meteo para Madrid, calcula un uso estimado de iluminación según la nubosidad media diaria y muestra los resultados en un dashboard web.
@@ -226,4 +225,4 @@ script actualiza el CSV y el segundo genera el HTML a partir de ese CSV.
     plantilla al actualizar el dashboard.
 -   El consumo es una estimación basada en la fórmula del ejercicio; no
     es una medición real de una instalación de refrigeración.
->>>>>>> prueba4-refrigeracion
+prueba4-refrigeracion
