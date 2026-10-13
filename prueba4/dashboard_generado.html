@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de refrigeración</title>
+
+    <!-- Carga la biblioteca ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 24px;
+            background-color: #f4f6f8;
+            color: #222;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .grafico {
+            width: 100%;
+            height: 350px;
+            background-color: white;
+            margin-bottom: 24px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Dashboard de refrigeración</h1>
+
+    <!-- Gráfico de temperaturas -->
+    <div id="graficoTemperaturas" class="grafico"></div>
+
+    <!-- Gráfico de consumo -->
+    <div id="graficoConsumo" class="grafico"></div>
+
+    <script>
+        const fechas = ["2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17"];
+        const temperaturas = [23.3, 24.4, 26.9, 26.0, 25.4, 22.3, 23.6];
+        const consumos = [0.0, 0.0, 19.0, 10.0, 4.0, 0.0, 0.0];
+
+        // Prepara el gráfico de temperaturas
+        const graficoTemperaturas = echarts.init(
+            document.getElementById("graficoTemperaturas")
+        );
+
+        graficoTemperaturas.setOption({
+            title: {
+                text: "Temperatura máxima diaria"
+            },
+            tooltip: {},
+            xAxis: {
+                type: "category",
+                data: fechas,
+                name: "Día"
+            },
+            yAxis: {
+                type: "value",
+                name: "Temperatura (°C)"
+            },
+            series: [{
+                name: "Temperatura",
+                type: "line",
+                data: temperaturas,
+                smooth: true
+            }]
+        });
+
+        // Prepara el gráfico de consumo
+        const graficoConsumo = echarts.init(
+            document.getElementById("graficoConsumo")
+        );
+
+        graficoConsumo.setOption({
+            title: {
+                text: "Consumo de refrigeración"
+            },
+            tooltip: {},
+            xAxis: {
+                type: "category",
+                data: fechas,
+                name: "Día"
+            },
+            yAxis: {
+                type: "value",
+                name: "Consumo (kWh)"
+            },
+            series: [{
+                name: "Consumo",
+                type: "bar",
+                data: consumos
+            }]
+        });
+
+        // Ajusta los gráficos al cambiar el tamaño de la ventana
+        window.addEventListener("resize", function () {
+            graficoTemperaturas.resize();
+            graficoConsumo.resize();
+        });
+    </script>
+
+</body>
+</html>
